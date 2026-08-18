@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrandIT Hub — Career, Content, Creative Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#3A2359;
+    --ink-2:#4F2F74;
+    --paper:#FBF6E9;
+    --paper-2:#F1E6C8;
+    --line:#ddcfa0;
+    --red:#7C2545;
+    --green:#E97A2A;
+    --gold:#E97A2A;
+    --purple-soft:#8C63B5;
+    --text:#2A1F3D;
+    --text-soft:#655A4A;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.03em;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+
+  /* paper grain */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.035; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(251,246,233,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    position:sticky;
+  }
+  header::after{
+    content:""; display:block; height:3px;
+    background:linear-gradient(90deg, var(--ink) 0%, var(--purple-soft) 45%, var(--gold) 100%);
+  }
+  nav{
+    max-width:1180px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{display:flex; align-items:center; gap:11px; font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:var(--ink);}
+  .brand .mark{
+    width:34px; height:34px; border-radius:8px;
+    overflow:hidden; flex-shrink:0;
+    box-shadow:0 0 0 1px var(--line);
+  }
+  .brand .mark img{width:100%; height:100%; object-fit:cover; display:block;}
+  .brand .brand-text{display:flex; flex-direction:column; line-height:1.15;}
+  .brand .tagline{
+    font-family:'IBM Plex Mono',monospace; font-weight:400; font-size:10px; letter-spacing:0.09em;
+    text-transform:uppercase; color:var(--green);
+  }
+  nav ul{list-style:none; display:flex; gap:28px; margin:0; padding:0;}
+  nav a{text-decoration:none; font-size:14px; font-weight:500; color:var(--text-soft); transition:color .2s;}
+  nav a:hover{color:var(--ink);}
+  nav a:focus-visible, button:focus-visible, .toggle:focus-visible{outline:2px solid var(--ink); outline-offset:3px;}
+
+  section{max-width:1180px; margin:0 auto; padding:96px 28px;}
+  @media(max-width:720px){ section{padding:64px 20px;} }
+
+  /* HERO */
+  .hero{
+    padding-top:76px;
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+    position:relative;
+  }
+  .hero::before{
+    content:""; position:absolute; top:-60px; right:-80px; width:520px; height:520px; z-index:-1;
+    background:radial-gradient(circle, rgba(140,99,181,0.28) 0%, rgba(233,122,42,0.10) 55%, transparent 75%);
+    border-radius:50%;
+  }
+  @media(max-width:920px){ .hero{grid-template-columns:1fr; padding-top:48px;} }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:16px;height:1px;background:var(--gold);}
+  .hero h1{
+    font-size:clamp(38px, 5.2vw, 62px);
+    line-height:1.04;
+    color:var(--ink);
+  }
+  .hero h1 em{font-style:italic; color:var(--gold); font-weight:500;}
+  .hero p.lede{
+    margin-top:22px; font-size:17px; line-height:1.6; color:var(--text-soft); max-width:46ch;
+  }
+  .service-row{
+    margin-top:26px; display:flex; gap:10px; flex-wrap:wrap;
+  }
+  .service-row span{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.03em;
+    padding:6px 13px; border-radius:999px; border:1px solid var(--line); background:var(--paper-2); color:var(--text-soft);
+  }
+  .cta-row{margin-top:28px; display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:14.5px;
+    padding:13px 24px; border-radius:999px; text-decoration:none; cursor:pointer;
+    border:1.5px solid var(--ink); transition:transform .15s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
+    display:inline-block;
+  }
+  .btn-solid{background:var(--ink); color:var(--paper);}
+  .btn-solid:hover{transform:translateY(-2px); background:var(--ink-2); box-shadow:0 10px 24px -10px rgba(58,35,89,0.55);}
+  .btn-ghost{background:transparent; color:var(--ink);}
+  .btn-ghost:hover{transform:translateY(-2px); background:var(--paper-2);}
+
+  /* HERO DOCUMENT DEMO */
+  .doc-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:0 30px 60px -25px rgba(58,35,89,0.45);
+    padding:30px 28px 26px;
+    position:relative;
+    transform:rotate(0.6deg);
+  }
+  .doc-head{
+    display:flex; justify-content:space-between; align-items:center;
+    border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:18px;
+  }
+  .doc-head .file-id{font-size:11px; color:var(--text-soft);}
+  .toggle-wrap{display:flex; align-items:center; gap:10px;}
+  .toggle-label{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.06em;}
+  .toggle{
+    position:relative; width:52px; height:26px; border-radius:20px;
+    background:var(--red); border:none; cursor:pointer; flex-shrink:0;
+    transition:background .25s ease;
+  }
+  .toggle.on{background:var(--green);}
+  .toggle .knob{
+    position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%;
+    background:#fff; transition:left .25s ease; box-shadow:0 1px 3px rgba(0,0,0,.3);
+  }
+  .toggle.on .knob{left:29px;}
+  .doc-body{min-height:190px; position:relative;}
+  .doc-state{font-size:14.5px; line-height:1.65;}
+  .doc-state.before .redline{color:var(--red); text-decoration:line-through; text-decoration-thickness:1.5px; opacity:0.85;}
+  .doc-state.before .note{
+    display:block; margin-top:10px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--red);
+  }
+  .doc-state.after{color:var(--text);}
+  .doc-state.after .metric{color:var(--green); font-weight:600;}
+  .stamp{
+    position:absolute; top:-6px; right:0;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; letter-spacing:0.08em;
+    color:var(--green); border:2px solid var(--green); border-radius:50%;
+    width:74px; height:74px; display:flex; align-items:center; justify-content:center; text-align:center;
+    transform:rotate(-10deg) scale(0.85); opacity:0; transition:opacity .3s ease .1s, transform .3s ease .1s;
+    pointer-events:none;
+  }
+  .stamp.show{opacity:0.9; transform:rotate(-10deg) scale(1);}
+
+  /* SECTION HEADERS */
+  .sec-head{max-width:640px; margin-bottom:52px;}
+  .sec-head .eyebrow{color:var(--text-soft);}
+  .sec-head .eyebrow::before{background:var(--text-soft);}
+  .sec-head h2{font-size:clamp(28px,3.4vw,38px); color:var(--ink);}
+  .sec-head p{color:var(--text-soft); margin-top:14px; font-size:15.5px; line-height:1.6;}
+
+  /* PROCESS STRIP */
+  .process{background:var(--ink); color:var(--paper);}
+  .process .sec-head h2, .process .sec-head p{color:var(--paper);}
+  .process .sec-head p{color:#d9c9ec;}
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:32px;}
+  @media(max-width:800px){ .steps{grid-template-columns:1fr;} }
+  .step{border-top:1px solid #5b3f80; padding-top:18px;}
+  .step .num{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold);}
+  .step h3{font-size:20px; margin-top:10px; font-weight:500;}
+  .step p{font-size:14px; color:#cbb8de; margin-top:8px; line-height:1.55;}
+
+  /* CASE STUDIES */
+  .case-grid{display:flex; flex-direction:column; gap:22px;}
+  .case-card{
+    background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden;
+    display:grid; grid-template-columns:260px 1fr; gap:0;
+  }
+  @media(max-width:860px){ .case-card{grid-template-columns:1fr;} }
+  .case-meta{
+    padding:28px 26px; background:var(--paper-2); border-right:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:space-between;
+  }
+  @media(max-width:860px){ .case-meta{border-right:none; border-bottom:1px solid var(--line); flex-direction:row; align-items:center;} }
+  .case-meta .file-id{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-soft);}
+  .case-meta h3{font-size:22px; margin-top:10px; color:var(--ink);}
+  .case-meta .tag{
+    display:inline-block; margin-top:12px; font-family:'IBM Plex Mono',monospace; font-size:11px;
+    padding:4px 11px; border-radius:999px; border:1px solid var(--purple-soft); color:var(--ink-2); width:fit-content;
+  }
+  .case-body{padding:28px 30px;}
+  .case-toggle-row{display:flex; align-items:center; gap:10px; margin-bottom:18px;}
+  .case-content{position:relative; min-height:130px;}
+  .case-content .doc-state{font-size:14.5px;}
+  .case-content .doc-state.after ul{margin:10px 0 0; padding-left:18px;}
+  .case-content .doc-state.after li{margin-bottom:6px; line-height:1.5;}
+  .case-content .stamp{width:64px;height:64px;font-size:11px;top:-2px;}
+
+  /* FULL PORTFOLIO GRID */
+  .grid-cards{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  @media(max-width:800px){ .grid-cards{grid-template-columns:1fr;} }
+  .file-card{
+    background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px 26px 22px;
+  }
+  .file-card .file-id{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-soft);}
+  .file-card h3{font-size:19px; margin-top:8px; color:var(--ink);}
+  .file-card .role{font-size:13px; color:var(--text-soft); margin-top:2px;}
+  .file-card p.summary{font-size:14px; line-height:1.55; margin-top:14px; color:var(--text);}
+  .file-card .highlights{margin-top:14px; padding-left:18px; font-size:13.5px; color:var(--text-soft);}
+  .file-card .highlights li{margin-bottom:5px;}
+  details{margin-top:16px; border-top:1px solid var(--line); padding-top:12px;}
+  summary{
+    cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink); list-style:none; display:flex; align-items:center; gap:6px;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary::before{content:"+"; font-size:15px; line-height:1;}
+  details[open] summary::before{content:"–";}
+  .full-text{font-size:13.5px; line-height:1.6; color:var(--text-soft); margin-top:14px; white-space:pre-line;}
+  .full-text strong{color:var(--text); display:block; margin-top:12px; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.05em;}
+
+  /* CONTACT */
+  .contact{background:var(--ink); color:var(--paper); text-align:center;}
+  .contact h2{font-size:clamp(30px,4vw,44px); color:#fff;}
+  .contact p{color:#d9c9ec; margin-top:16px; font-size:16px; max-width:52ch; margin-left:auto; margin-right:auto;}
+  .contact .cta-row{justify-content:center; margin-top:34px;}
+  .contact .btn-solid{background:var(--gold); border-color:var(--gold); color:var(--ink);}
+  .contact .btn-ghost{border-color:rgba(255,255,255,0.35); color:var(--paper);}
+  .contact .btn-ghost:hover{background:var(--ink-2);}
+  .contact .note{margin-top:26px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#a08cba;}
+  .social-row{
+    margin-top:30px; display:flex; gap:22px; justify-content:center; flex-wrap:wrap;
+  }
+  .social-row a{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.05em; text-transform:uppercase;
+    color:#d9c9ec; text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px;
+    transition:border-color .2s ease, color .2s ease;
+    margin:0 11px;
+  }
+  .social-row a:hover{color:var(--gold); border-color:var(--gold);}
+
+  footer{
+    padding:34px 28px; display:flex; flex-direction:column; align-items:center; gap:12px;
+    text-align:center; font-size:12.5px; color:var(--text-soft); font-family:'IBM Plex Mono',monospace;
+  }
+  .footer-logo{width:34px; height:34px; border-radius:8px; box-shadow:0 0 0 1px var(--line);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header>
+  <nav>
+    <div class="brand"><span class="mark"><img src="data:image/jpeg;base64,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" alt="BrandIT Hub logo"></span><span class="brand-text">BrandIT Hub<span class="tagline">Career &middot; Content &middot; Creative</span></span></div>
+    <ul>
+      <li><a href="#work">Case Studies</a></li>
+      <li><a href="#portfolio">Full Portfolio</a></li>
+      <li><a href="#contact">Start a Rewrite</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow">Career &middot; Content &middot; Creative</div>
+    <h1>Every CV starts<br>as a draft. <em>Yours won't<br>stay one.</em></h1>
+    <p class="lede">We take job seekers' rough, duty-listing drafts and rewrite them into CVs that quantify achievements, survive ATS filters, and get interviews — across trades, sales, operations, HR, and agriculture.</p>
+    <div class="service-row">
+      <span>CV Writing &amp; Revamping</span><span>LinkedIn Optimization</span><span>Cover Letters &mdash; Entry to Senior</span>
+    </div>
+    <div class="cta-row">
+      <a href="#work" class="btn btn-solid">See the case studies</a>
+      <a href="#contact" class="btn btn-ghost">Start your rewrite</a>
+    </div>
+  </div>
+
+  <div class="doc-card">
+    <div class="doc-head">
+      <span class="file-id mono">FILE — SLS-014.DOCX</span>
+      <div class="toggle-wrap">
+        <span class="toggle-label mono" id="toggleLabelText">Before</span>
+        <button class="toggle" id="heroToggle" aria-pressed="false" aria-label="Toggle between before and after CV excerpt"><span class="knob"></span></button>
+      </div>
+    </div>
+    <div class="doc-body">
+      <div class="doc-state before" id="heroBefore">
+        <span class="redline">I have experience in sales, meeting customers and selling company products. I usually meet my targets and get along well with customers.</span>
+        <span class="note">margin note: no numbers, no proof, sounds like everyone else</span>
+      </div>
+      <div class="doc-state after" id="heroAfter" style="display:none;">
+        Delivered <span class="metric">95–105%</span> of monthly distribution targets across a <span class="metric">20+ account</span> territory while maintaining <span class="metric">zero bad debt</span> over three years — recognized as top sales performer in the sub-territory.
+        <div class="stamp" id="heroStamp">APPROVED<br>FOR SUBMISSION</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="sec-head reveal">
+    <div class="eyebrow">The Edit</div>
+    <h2>Three passes, one document.</h2>
+    <p>The same process runs behind every case study below — it's what turns a duty list into a document a hiring manager reads twice.</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="num mono">01 — INTAKE</div>
+      <h3>The draft comes in</h3>
+      <p>Your work history as it exists today — messy, incomplete, or just too modest. Nothing gets thrown away; everything gets mined for proof.</p>
+    </div>
+    <div class="step reveal">
+      <div class="num mono">02 — REDLINE</div>
+      <h3>Duties become evidence</h3>
+      <p>Every vague line is interrogated: what changed because you were there? Numbers, scope, and outcomes get pulled out and made visible.</p>
+    </div>
+    <div class="step reveal">
+      <div class="num mono">03 — APPROVED</div>
+      <h3>A document that argues for you</h3>
+      <p>Structured, keyword-matched, and built to be scanned in six seconds by a human or a filter — and to hold up once someone actually reads it.</p>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Case Studies</div>
+    <h2>Three rewrites, side by side.</h2>
+    <p>Toggle each file between the client's original draft and the rewritten version. All names and contact details are anonymized samples.</p>
+  </div>
+
+  <div class="case-grid">
+
+    <div class="case-card reveal">
+      <div class="case-meta">
+        <div>
+          <div class="file-id">FILE — ENG-009</div>
+          <h3>Maintenance Engineer</h3>
+        </div>
+        <span class="tag">FMCG MANUFACTURING · 9 YRS</span>
+      </div>
+      <div class="case-body">
+        <div class="case-toggle-row">
+          <button class="toggle" data-case="c1" aria-pressed="false" aria-label="Toggle before and after"><span class="knob"></span></button>
+          <span class="toggle-label mono" data-label="c1">Before</span>
+        </div>
+        <div class="case-content">
+          <div class="doc-state before" data-state="c1-before">
+            <span class="redline">I have work experience of over 9 years fixing machines in different companies. My duties included doing maintenance work, checking machines, and reporting problems to my supervisor.</span>
+            <span class="note">margin note: "fixing machines" hides 9 years of technical scope</span>
+          </div>
+          <div class="doc-state after" data-state="c1-after" style="display:none;">
+            Experienced Maintenance Engineer specializing in preventive and predictive maintenance across high-speed FMCG manufacturing.
+            <ul>
+              <li>Reduced unplanned downtime by <span class="metric" style="color:var(--green);font-weight:600;">25%</span> and improved OEE by 15% through structured TPM and root cause analysis</li>
+              <li>Managed 300+ preventive maintenance tasks monthly with 95% compliance via SAP PM</li>
+              <li>Led TPM initiatives, training 50+ technicians in ownership-based maintenance culture</li>
+            </ul>
+            <div class="stamp" data-stamp="c1">APPROVED<br>FOR SUBMISSION</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card reveal">
+      <div class="case-meta">
+        <div>
+          <div class="file-id">FILE — OPS-022</div>
+          <h3>Operations &amp; Logistics</h3>
+        </div>
+        <span class="tag">FMCG · CROSS-BORDER · 7+ YRS</span>
+      </div>
+      <div class="case-body">
+        <div class="case-toggle-row">
+          <button class="toggle" data-case="c2" aria-pressed="false" aria-label="Toggle before and after"><span class="knob"></span></button>
+          <span class="toggle-label mono" data-label="c2">Before</span>
+        </div>
+        <div class="case-content">
+          <div class="doc-state before" data-state="c2-before">
+            <span class="redline">I have worked in different companies handling operations and admin duties. My job involved keeping records, handling logistics, and doing reports. I am organized, hardworking and good with computers.</span>
+            <span class="note">margin note: no employer, no scale, no outcome</span>
+          </div>
+          <div class="doc-state after" data-state="c2-after" style="display:none;">
+            Operations professional coordinating distribution logistics and financial reconciliation across FMCG, cross-border freight, and education sectors.
+            <ul>
+              <li>Maintained <span class="metric" style="color:var(--green);font-weight:600;">100%</span> documentation accuracy across 15 months at a Nestlé factory site</li>
+              <li>Reduced financial reporting errors by 35% through a systematic record approach</li>
+              <li>Rebuilt reconciliation templates that eliminated recurring cross-border reporting errors</li>
+            </ul>
+            <div class="stamp" data-stamp="c2">APPROVED<br>FOR SUBMISSION</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card reveal">
+      <div class="case-meta">
+        <div>
+          <div class="file-id">FILE — SLS-014</div>
+          <h3>Sales Executive</h3>
+        </div>
+        <span class="tag">FMCG DISTRIBUTION · 3+ YRS</span>
+      </div>
+      <div class="case-body">
+        <div class="case-toggle-row">
+          <button class="toggle" data-case="c3" aria-pressed="false" aria-label="Toggle before and after"><span class="knob"></span></button>
+          <span class="toggle-label mono" data-label="c3">Before</span>
+        </div>
+        <div class="case-content">
+          <div class="doc-state before" data-state="c3-before">
+            <span class="redline">I have experience in sales, meeting customers and selling company products. I usually meet my targets and get along well with customers. I am a hard worker and fast learner.</span>
+            <span class="note">margin note: "usually meet my targets" — by how much?</span>
+          </div>
+          <div class="doc-state after" data-state="c3-after" style="display:none;">
+            Results-driven sales professional with a track record of exceeding targets and building high-trust client relationships.
+            <ul>
+              <li>Delivered <span class="metric" style="color:var(--green);font-weight:600;">95–105%</span> of monthly distribution targets across a 20+ account territory</li>
+              <li>Maintained zero bad-debt exposure across a 3-year tenure through disciplined credit control</li>
+              <li>Mentored 3 junior Sales Executives; assumed senior territory responsibility ahead of typical tenure</li>
+            </ul>
+            <div class="stamp" data-stamp="c3">APPROVED<br>FOR SUBMISSION</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="sec-head reveal">
+    <div class="eyebrow">Full Portfolio</div>
+    <h2>More case files.</h2>
+    <p>Complete samples across HR, business development, agriculture, and two international-facing cover letters. Expand any file for the full document.</p>
+  </div>
+
+  <div class="grid-cards">
+
+    <div class="file-card reveal">
+      <div class="file-id">FILE — HR-031</div>
+      <h3>HR &amp; Project Coordination</h3>
+      <div class="role">Human Resources Assistant · Public Sector / NGO-funded project</div>
+      <p class="summary">4+ years streamlining HR operations, confidential records, and onboarding across government and development-project environments.</p>
+      <ul class="highlights">
+        <li>100% compliance maintaining records for 50+ staff</li>
+        <li>Centralized filing system cut document retrieval time by 50%</li>
+        <li>Cut travel-booking errors by 90% through improved workflows</li>
+      </ul>
+      <details>
+        <summary>View full CV</summary>
+        <div class="full-text"><strong>Professional Summary</strong>Resourceful HR and Administrative Assistant with 4+ years of experience streamlining HR operations, managing confidential records, and optimizing office workflows. Proven track record supporting recruitment, onboarding, and executive coordination with precision and discretion.
+
+<strong>Experience</strong>Federal Ministry of Water Resources and Sanitation, Abuja — HR Assistant (NYSC), Apr 2024–Apr 2025
+• Streamlined HR documentation for 50+ staff, ensuring 100% confidentiality compliance
+• Coordinated 12+ employee development workshops, lifting participation by 40%
+• Cut new-hire setup time by 35% through improved onboarding logistics
+• Centralized filing system increased document retrieval speed by 50%
+
+CLACCS Associates, Abuja — Administrative &amp; Project Coordinator, Nov 2022–Feb 2024
+• Coordinated 200+ high-priority executive meetings and calendars
+• Standardized project milestone tracking, boosting on-time delivery by 40%
+• Cut travel-booking errors by 90% through improved planning workflows
+
+Federal Ministry of Water Resources and Sanitation — Inventory &amp; Logistics Intern, Jul 2019–Jun 2020
+• Conducted bi-weekly audits of 1,000+ items, cutting supply discrepancies by 15%
+
+<strong>Education</strong>HND, Public Administration — Federal Polytechnic, Nasarawa State
+NYSC Certificate (Completed)</div>
+      </details>
+    </div>
+
+    <div class="file-card reveal">
+      <div class="file-id">FILE — BDV-007</div>
+      <h3>Business Development</h3>
+      <div class="role">Business Development Manager · FMCG / SME growth</div>
+      <p class="summary">Graduate-trainee-track profile blending sales leadership, operations, and career-change history into one coherent growth narrative.</p>
+      <ul class="highlights">
+        <li>78% YoY revenue growth via targeted campaigns</li>
+        <li>25% customer base expansion in 18 months</li>
+        <li>84% monthly sales increase in a prior market-developer role</li>
+      </ul>
+      <details>
+        <summary>View full CV</summary>
+        <div class="full-text"><strong>Professional Summary</strong>Results-oriented, adaptable graduate with a strong background in team leadership, sales development, and operations management. Proven ability to drive year-over-year growth through strategic marketing and customer engagement.
+
+<strong>Experience</strong>Business Development Manager, Helen B Communication, Mar 2020–Jun 2024
+• Increased company profit and YoY revenue by 78% through targeted marketing and client engagement
+• Negotiated key accounts, expanding customer base 25% in 18 months
+• Built a staff accountability framework, cutting task delays by 40%
+• Introduced CRM tooling that shaped product and service decisions
+
+Sales and Market Developer, Mojo Yin Co. Ltd., Aug 2018–Jun 2020
+• Boosted monthly sales by 84% through customer-centric, segmented marketing
+• Adjusted pricing via competitive analysis to grow brand penetration
+• Aligned sales and logistics teams for smoother delivery operations
+
+Administrative Assistant / Radiographer Intern, Temidayo Medical Centre, 2007–2012
+• Maintained accurate patient records and equipment calibration
+• Cut appointment delays by 30% through improved scheduling accuracy
+
+<strong>Education</strong>National Diploma, Medical Imaging Technology — Ogun State Polytechnic
+B.Th, Theology — Word of Faith Bible Institute</div>
+      </details>
+    </div>
+
+    <div class="file-card reveal">
+      <div class="file-id">FILE — AGR-002</div>
+      <h3>Agriculture / Entry-Level</h3>
+      <div class="role">Farm Intern → Agricultural Extension Graduate</div>
+      <p class="summary">A first-CV case: six months of internship experience plus a fresh degree, structured to read as a real launchpad rather than a blank slate.</p>
+      <ul class="highlights">
+        <li>Full crop and livestock operations exposure</li>
+        <li>Daily record-keeping and production logging</li>
+        <li>B.Tech, Agricultural Extension &amp; Communication Technology</li>
+      </ul>
+      <details>
+        <summary>View full CV</summary>
+        <div class="full-text"><strong>Professional Summary</strong>Motivated recent graduate with six months of practical internship experience at a working farm. Gained hands-on exposure in crop and livestock operations, farm management practices, record keeping, and teamwork.
+
+<strong>Experience</strong>Farm Intern, Taiyelolu Farms, Sagamu, Ogun State, Jun 2024–Dec 2024
+• Participated in land preparation, planting, weeding, and harvesting
+• Maintained daily farm records and production logs
+• Assisted with livestock feeding, health monitoring, and hygiene management
+• Supported post-harvest handling, storage, and packaging
+
+<strong>Education</strong>B.Tech, Agricultural Extension and Communication Technology — Federal University of Technology, Akure, 2025
+
+<strong>Skills</strong>Livestock care &amp; handling · Farm record keeping · Crop production techniques · MS Word &amp; Excel · Team collaboration</div>
+      </details>
+    </div>
+
+    <div class="file-card reveal">
+      <div class="file-id">FILE — LTR-018</div>
+      <h3>Maintenance Fitter — Cover Letter</h3>
+      <div class="role">UK visa-sponsorship application · trades / manufacturing</div>
+      <p class="summary">Paired with the ENG-009 CV for a UK sponsorship application — leads with the same downtime and OEE metrics, adapted to UK qualification language.</p>
+      <ul class="highlights">
+        <li>City &amp; Guilds Level 3, Engineering Maintenance (NVQ)</li>
+        <li>18th Edition Wiring Regulations (BS 7671) in progress</li>
+        <li>Same 25% downtime / 15% OEE proof points, re-angled for the role</li>
+      </ul>
+      <details>
+        <summary>View full letter</summary>
+        <div class="full-text">Dear Hiring Manager,
+
+I am writing to express my interest in the Maintenance Fitter position with UK visa sponsorship as advertised. With over nine years of hands-on experience in mechanical and electrical maintenance, mainly in FMCG and manufacturing, I am confident I can bring solid technical skill and a strong work ethic.
+
+In my recent role at a leading FMCG manufacturer, I carried out both planned and reactive maintenance on motors, gearboxes, conveyors, and pneumatic systems — as part of a team that reduced unplanned downtime by 25% and improved OEE by 15%. I have been closely involved in TPM activities, root cause analysis, and safety-first maintenance strategy.
+
+I hold a Level 3 City &amp; Guilds qualification in Engineering Maintenance (NVQ Level 3) and am currently completing the 18th Edition Wiring Regulations (BS 7671), and am familiar with UK safety standards.</div>
+      </details>
+    </div>
+
+    <div class="file-card reveal">
+      <div class="file-id">FILE — LTR-025</div>
+      <h3>PR Manager — Cover Letter</h3>
+      <div class="role">Hospitality &amp; lifestyle brand · Public Relations</div>
+      <p class="summary">Employer-specific letter that names the brand's own positioning back to them — written to read as briefed, not templated.</p>
+      <ul class="highlights">
+        <li>45% increase in media coverage in a prior hospitality PR role</li>
+        <li>3 years leading hospitality/lifestyle PR campaigns</li>
+        <li>Opens by naming the brand's own reputation, not the applicant's</li>
+      </ul>
+      <details>
+        <summary>View full letter</summary>
+        <div class="full-text">Dear Hiring Manager,
+
+I am writing to express my strong interest in the position of Public Relations Manager. With a solid background in public relations, media strategy, and brand management, I am confident in my ability to shape and elevate your public image — a brand known for elegance, hospitality, and class.
+
+Over the past 3 years, I have led PR campaigns for clients in the hospitality and lifestyle industry, crafting narratives that resonate with audiences and drive visibility. In a previous hotel role, I spearheaded initiatives that increased media coverage by 45%, coordinated high-impact events, and built strong relationships with brand partners, influencers, and media.
+
+What excites me most about this opportunity is the brand's refined identity and commitment to premium experiences. I would welcome the opportunity to discuss how I can add value to your team.</div>
+      </details>
+    </div>
+
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Have a draft sitting in a folder somewhere?</h2>
+  <p>Send it over. Every rewrite starts the same way — your real experience, redlined, then approved for submission.</p>
+  <div class="cta-row">
+    <a href="https://wa.me/2348058842620" class="btn btn-solid" target="_blank" rel="noopener">Message on WhatsApp</a>
+    <a href="https://instagram.com/ibrandit_hub" class="btn btn-ghost" target="_blank" rel="noopener">@ibrandit_hub</a>
+  </div>
+  <div class="social-row">
+    <a href="https://instagram.com/ibrandit_hub" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://twitter.com/TheBrandITHub" target="_blank" rel="noopener">X</a>
+  </div>
+</section>
+
+<footer>
+  <img src="data:image/jpeg;base64,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" alt="BrandIT Hub logo" class="footer-logo">
+  <div>© <span id="year"></span> BrandIT Hub — Career &middot; Content &middot; Creative. All client names and details shown are anonymized samples.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Hero toggle
+  const heroToggle = document.getElementById('heroToggle');
+  const heroBefore = document.getElementById('heroBefore');
+  const heroAfter = document.getElementById('heroAfter');
+  const heroLabel = document.getElementById('toggleLabelText');
+  const heroStamp = document.getElementById('heroStamp');
+  heroToggle.addEventListener('click', () => {
+    const isOn = heroToggle.classList.toggle('on');
+    heroToggle.setAttribute('aria-pressed', isOn);
+    heroBefore.style.display = isOn ? 'none' : 'block';
+    heroAfter.style.display = isOn ? 'block' : 'none';
+    heroLabel.textContent = isOn ? 'After' : 'Before';
+    if(isOn){ requestAnimationFrame(()=> heroStamp.classList.add('show')); }
+    else { heroStamp.classList.remove('show'); }
+  });
+
+  // Case study toggles
+  document.querySelectorAll('.toggle[data-case]').forEach(btn => {
+    const id = btn.getAttribute('data-case');
+    const label = document.querySelector('[data-label="'+id+'"]');
+    const before = document.querySelector('[data-state="'+id+'-before"]');
+    const after = document.querySelector('[data-state="'+id+'-after"]');
+    const stamp = document.querySelector('[data-stamp="'+id+'"]');
+    btn.addEventListener('click', () => {
+      const isOn = btn.classList.toggle('on');
+      btn.setAttribute('aria-pressed', isOn);
+      before.style.display = isOn ? 'none' : 'block';
+      after.style.display = isOn ? 'block' : 'none';
+      label.textContent = isOn ? 'After' : 'Before';
+      if(isOn){ requestAnimationFrame(()=> stamp.classList.add('show')); }
+      else { stamp.classList.remove('show'); }
+    });
+  });
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
